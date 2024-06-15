@@ -13,21 +13,25 @@ interface EarthquakeDisplayProps {
   earthquake: Earthquake;
 }
 
+
 function EarthquakeDiplay(props: EarthquakeDisplayProps) {
-
-
+  const time = new Date(props.earthquake.properties.time).toLocaleString()
   const magnitude = Math.ceil(props.earthquake.properties.mag);
-  const colorClass = magnitude <= 3 ? "green" :
-                     magnitude <= 4 ? "yellow" :
-                     magnitude <= 6 ? "orange" :
-                     magnitude <= 10 ? "red" :
-                     "gray"
+  
+  const colorClass =
+    magnitude <= 3 ? "green" :
+      magnitude <= 4 ? "yellow" :
+        magnitude <= 6 ? "orange" :
+          magnitude <= 10 ? "red" :
+            "gray"
 
   return (
-    <div className={colorClass}>
-      <p>{props.earthquake.properties.place}</p>
-      <p>{props.earthquake.properties.time}</p>
-      <p>{props.earthquake.properties.mag}</p>
+    <div className={`circle ${colorClass}`}>
+      <div className="info-container">
+        <p>{props.earthquake.properties.place}</p>
+        <p>{time}</p>
+        <p>{magnitude}</p>
+      </div>
     </div>
   )
 }

@@ -1,15 +1,34 @@
 .green {
     background-color: green;
+    color: black;
 }
 
 .yellow {
     background-color: yellow;
+    color: black;
 }
 
 .orange {
     background-color: orange;
+    color: black;
 }
 
 .red {
     background-color: red;
+    color: black;
+}
+
+.circle {
+    aspect-ratio: 1 / 1;
+    width: 400px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
 }

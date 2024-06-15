@@ -1,7 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react'
-import './components/color_display/ColorDisplay'
-import ColorDisplay from './components/color_display/ColorDisplay'
+import './components/color_display/EarthquakeDisplay'
+import EarthquakeDisplay from './components/color_display/EarthquakeDisplay'
 import { useFetch } from './components/fetch_hook/useFetch'
 
 interface Earthquake {
@@ -17,18 +17,37 @@ interface EarthquakeData {
   features: Earthquake[];
 }
 
+const formatDateToISOString = (date: Date): string => {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = "00";
+  const minutes = "00";
+  const seconds = "00";
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+
 function App() {
-  const [magnitudes, setMagnitudes] = useState<number[]>([]);
+  const [earthquake, setEarthquake] = useState<Earthquake | undefined>();
+  const currentTime = new Date()
+  const formattedTime = formatDateToISOString(currentTime)
+  console.log(formattedTime);
+
 
   const { data, error, loading } = useFetch<EarthquakeData>(
-    'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-06-13T10:00:00&endtime=2024-06-14T07:00:00'
+    `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${formattedTime}`
   )
 
   useEffect(() => {
+
     if (data && data.features) {
-      const extractedMangnitudes = data.features.map((feature) => feature.properties.mag);
-      const filteredMagnitudes = extractedMangnitudes.filter((magnitude) => magnitude > 2.5);
-      setMagnitudes(filteredMagnitudes)
+      const latestEarthquake = data.features.find((earthquake) => earthquake.properties.mag > 2.4);
+
+      console.log(data.features);
+
+      if (latestEarthquake)
+        setEarthquake(latestEarthquake)
     }
   }, [data])
 
@@ -37,10 +56,7 @@ function App() {
 
   return (
     <>
-      {magnitudes.map((magnitude, index) => (
-        <li key={index}>{magnitude}</li>
-      ))}
-      <ColorDisplay />
+      {earthquake ? <EarthquakeDisplay earthquake={earthquake} /> : "No earthquakes today"}
     </>
   )
 }

@@ -8,16 +8,19 @@ export function useFetch<T>(url: string) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(url);
-                const jsonData = await response.json();
-                setData(jsonData)
+              const response = await fetch(url);
+              const jsonData = await response.json();
+              setData(jsonData);
             } catch (err) {
-                setError(err as Error)
+              setError(err as Error);
             } finally {
-                setLoading(false)
+              setLoading(false);
             }
-        };
-        fetchData();
+          };
+          fetchData();
+      
+          const intervalId = setInterval(fetchData, 3600000);
+          return () => clearInterval(intervalId);
     }, [url]);
 
     return { data, error, loading }

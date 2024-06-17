@@ -20,9 +20,9 @@ function EarthquakeDiplay(props: EarthquakeDisplayProps) {
   const magnitude = Math.round(props.earthquake.properties.mag * 10) / 10;
 
   const colorClass =
-    magnitude <= 3 ? "green" :
-      magnitude <= 4 ? "yellow" :
-        magnitude <= 6 ? "orange" :
+    magnitude < 4 ? "green" :
+      magnitude < 6 ? "yellow" :
+        magnitude < 7 ? "orange" :
           magnitude <= 10 ? "red" :
             "gray"
 

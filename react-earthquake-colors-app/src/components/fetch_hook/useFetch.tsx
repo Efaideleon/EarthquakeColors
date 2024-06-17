@@ -19,7 +19,7 @@ export function useFetch<T>(url: string) {
           };
           fetchData();
       
-          const intervalId = setInterval(fetchData, 3600000);
+          const intervalId = setInterval(fetchData, 60000);
           return () => clearInterval(intervalId);
     }, [url]);
 

@@ -1,4 +1,5 @@
 import "./EarthquakeDisplayStyles.css"
+import { motion } from 'framer-motion'
 
 interface Earthquake {
   type: string;
@@ -16,8 +17,8 @@ interface EarthquakeDisplayProps {
 
 function EarthquakeDiplay(props: EarthquakeDisplayProps) {
   const time = new Date(props.earthquake.properties.time).toLocaleString()
-  const magnitude = Math.ceil(props.earthquake.properties.mag);
-  
+  const magnitude = Math.round(props.earthquake.properties.mag * 10) / 10;
+
   const colorClass =
     magnitude <= 3 ? "green" :
       magnitude <= 4 ? "yellow" :
@@ -26,13 +27,18 @@ function EarthquakeDiplay(props: EarthquakeDisplayProps) {
             "gray"
 
   return (
-    <div className={`circle ${colorClass}`}>
+    <motion.div
+      className={`circle ${colorClass}`}
+      key={props.earthquake.properties.time}
+      animate={{ opacity: 1, scale: [1, 1.1, 1] }}
+      transition={{ duration: 0.5, repeat: 2 }}
+    >
       <div className="info-container">
-        <p>{props.earthquake.properties.place}</p>
-        <p>{time}</p>
-        <p>{magnitude}</p>
+        <div className="magnitude">{magnitude}</div>
+        <div className="location">{props.earthquake.properties.place}</div>
+        <div className="time">{time} UTC</div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

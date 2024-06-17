@@ -45,9 +45,9 @@ function App() {
   if (error) return <div>Error: {error.message}</div>
 
   return (
-    <>
+    <div className='main-content'>
       {earthquake ? <EarthquakeDisplay earthquake={earthquake} /> : "No earthquakes today"}
-    </>
+    </div>
   )
 }
 

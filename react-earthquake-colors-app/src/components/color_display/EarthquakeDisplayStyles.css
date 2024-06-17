@@ -29,6 +29,25 @@
 
 .info-container {
     display: flex;
-    flex-direction: column; 
+    width: 290px;
+    height: 300px;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.magnitude {
+    display: flex;
+    height: 66.66%;
+    font-size: 140px;
+    align-items: center;
+}
+
+.location,
+.time {
+    display: flex;
+    height: 33.33%;
     align-items: center;
 }

@@ -22,32 +22,57 @@
     aspect-ratio: 1 / 1;
     width: 400px;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .info-container {
     display: flex;
-    width: 290px;
-    height: 300px;
+    font-size: 2rem;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
-    font-size: x-large;
 }
 
 .magnitude {
     display: flex;
-    height: 66.66%;
-    font-size: 140px;
+    height: 75%;
+    font-size: 8rem;
     align-items: center;
 }
 
 .location,
 .time {
     display: flex;
-    height: 33.33%;
-    align-items: center;
+    height: 25%;
+    font-size: 1.2rem;
+}
+
+.location {
+    width: 80%;
+}
+
+.time {
+    width: 50%
+}
+
+@media (max-width: 768px) {
+
+    .location,
+    .time {
+        display: flex;
+        height: 33.33%;
+        font-size: 0.6rem;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .magnitude {
+        display: flex;
+        height: 66.66%;
+        align-items: center;
+        font-size: 3rem;
+    }
 }

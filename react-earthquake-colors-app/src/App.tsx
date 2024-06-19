@@ -16,24 +16,16 @@ interface EarthquakeData {
   features: Earthquake[];
 }
 
-const formatDateToISOString = (date: Date): string => {
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0'); 
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  const hours = "00";
-  const minutes = "00";
-  const seconds = "00";
-
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+const useFetchEarthquakeData = () => {
+  const dailyDate = `${new Date().toLocaleDateString('en-US')}T00:00:00`;
+  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${dailyDate}&minmagnitude=2.5`
+  return useFetch<EarthquakeData>(url)
 }
 
 
 function App() {
   const [earthquake, setEarthquake] = useState<Earthquake | undefined>();
-
-  const dailyISOTime = formatDateToISOString(new Date())
-  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${dailyISOTime}&minmagnitude=2.5`
-  const { data, error, loading } = useFetch<EarthquakeData>(url)
+  const { data, error, loading } = useFetchEarthquakeData()
 
   useEffect(() => {
     if (data && data.features) {

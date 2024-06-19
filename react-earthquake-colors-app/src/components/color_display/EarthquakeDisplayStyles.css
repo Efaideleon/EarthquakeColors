@@ -22,6 +22,7 @@
     aspect-ratio: 1 / 1;
     width: 400px;
     border-radius: 50%;
+    justify-items: center;
 }
 
 .info-container {
@@ -45,6 +46,7 @@
 .location,
 .time {
     display: flex;
+    justify-content: center;
     height: 25%;
     font-size: 1.2rem;
 }
